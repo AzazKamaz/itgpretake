@@ -3,7 +3,7 @@ Shader "AzazKamaz/LitSpecular"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _Exp ("Exponent", Float) = 50
+        _Exp ("Exponent", Float) = 100
     }
     SubShader
     {
@@ -54,14 +54,13 @@ Shader "AzazKamaz/LitSpecular"
 
             float4 frag (v2f i) : SV_Target
             {
-                // return float4(i.view, 1);
-                
                 Light l = GetMainLight();
                 float n_dot_l = dot(i.normal, l.direction);
                 float3 spec = 0;
                 if (n_dot_l > 0)
                 {
-                    spec = l.color * pow(max(0, dot(reflect(-l.direction, normalize(i.normal)), normalize(i.view))), _Exp);
+                    const float3 hd = normalize(normalize(l.direction) + normalize(i.view));
+                    spec = l.color * pow(max(0, dot(hd, normalize(i.normal))), _Exp);
                 }
                 return SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv) * n_dot_l * float4(l.color, 1) + float4(spec, 1);
             }
