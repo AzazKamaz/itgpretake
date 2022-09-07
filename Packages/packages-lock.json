@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.deltation.di-framework": {
+      "version": "https://github.com/Delt06/di-framework.git?path=Packages/com.deltation.di-framework",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "fca71b895c71fa4f414127c780b987e045fc1d86"
+    },
     "com.unity.collab-proxy": {
       "version": "1.17.2",
       "depth": 0,

@@ -3,22 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallPresenter : IDisposable
+public class BallPresenter : MonoBehaviour
 {
-    private readonly BallModel _ballModel;
-    private readonly BallView _ballView;
+    private BallView _ballView;
+    private BallModel _ballModel;
 
-    public BallPresenter(BallView ballView, BallModel ballModel)
+    public void Construct(BallView ballView, BallModel ballModel)
     {
-        _ballModel = ballModel;
         _ballView = ballView;
+        _ballModel = ballModel;
+    }
+
+    private void Awake()
+    {
         _ballModel.HealthChanged += OnHealthChanged;
         _ballView.CollidedWithBox += OnCollidedWithBox;
-        
+
         OnHealthChanged();
     }
 
-    public void Dispose()
+    private void OnDestroy()
     {
         _ballModel.HealthChanged -= OnHealthChanged;
         _ballView.CollidedWithBox -= OnCollidedWithBox;
