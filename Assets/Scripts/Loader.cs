@@ -11,7 +11,7 @@ public class Loader : MonoBehaviour
 
     private void Start()
     {
-        var level = PlayerPrefs.GetInt("LastLevel") + 1;
+        var level = PlayerPrefs.GetInt("LastLevel", -1) + 1;
 
         if (level >= levels.Count)
         {
